@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amazon Product Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h2, h3, h4 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: calc(100% - 22px); /* Adjusted width to account for padding and borders */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to the Amazon Product Recommendation System</h2>
+    <h3>Enter Customer Info</h3>
+    <form action="{{ url_for('predict') }}" method="POST">
+        <h4>User Id</h4>
+        <input type="number" name="UserId" min="1" max="20">
+        <h4>Number of Recommendations</h4>
+        <select name="num_recommendations">
+            {% for num in range(1, 21) %}
+            <option value="{{ num }}">{{ num }}</option>
+            {% endfor %}
+        </select>
+        <p><input type="submit" value="Predict"></p>
+        {% for table in tables %}
+        {{ titles[loop.index] }}
+        {{ table|safe }}
+        {% endfor %}
+    </form>
+</body>
+</html>
